@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { parse } from 'subtitle';
 
 import { Container } from './Page.styles';
 
-const Page = ({ className }) => {
-  const [file, uploadFile] = useState([]);
-
+const Page = ({ className, title, lang, file, uploadFile }) => {
   let fileReader;
 
   const handleFileRead = () => {
@@ -20,8 +18,7 @@ const Page = ({ className }) => {
         text,
       })
     });
-
-    uploadFile(content.slice(0,10));
+    uploadFile(content.slice(0,10), lang);
   }
 
   const handleFileUpload = (event) => {
@@ -34,6 +31,7 @@ const Page = ({ className }) => {
 
   return (
     <Container className={className}>
+      <title>{title}</title>
       <input id="myFile" type="file" onChange={handleFileUpload}/>
       {file.map((line, index) => <p key={index}>{line.text}</p>)}
     </Container>
